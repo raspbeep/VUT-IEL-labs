@@ -1,0 +1,183 @@
+\section{Príklad č.~2}
+
+\subsection{Zadanie}Stanovte napätie $U_{{R}_3}$ a prúd $I_{{R}_3}$. Použite metódu Théveninovej vety.
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+		\hline
+		sk. & $U_{1}$~[V] & $R_{1}~[\Omega]$ & $R_{2}~[\Omega]$ & $R_{3}~[\Omega]$ & $R_{4}~[\Omega]$ & $R_{5}~[\Omega]$ & $R_{6}~[\Omega]$\\
+		\hline
+		B&100&50&310 &610 &220 &570 & 200\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Riešenie}
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+(0,5.25) to[dcvsource, v_=$U_1$](0,0)
+(0,5.25) -- (1.5,5.25)
+(1.5,7) to[R, *-*, l_=$R_1$](5,7)
+(5,7) to[R, *-*, l_=$R_4$](8.5,7)
+(1.5,7) -- (1.5,3.5)
+
+(5,7) to[R, *-*, l=$R_3$, i=$I_3$, v=$U_3$](5,3.5)
+(1.5,3.5) to[R, *-*, l_=$R_2$](5,3.5)
+(8.5,7) to[R, -*, l_=$R_5$, ](8.5,3.5)
+(8.5,4.5) -- (8.5,3.5)
+(5,3.5) to[R, *-*, l=$R_6$](8.5,3.5)
+(0,0) -- (8.5,0)
+(8.5,3.5) -- (8.5,0)
+;
+\end{circuitikz}
+\centering
+\caption{Pôvodný obvod}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+(0,5.25) to[dcvsource, v_=$U_1$](0,0)
+(0,5.25) -- (1.5,5.25)
+(1.5,7) to[R, *-*, l_=$R_1$](5,7)
+(5,7) to[R, *-*, l_=$R_4{_5}$](8.5,7)
+(1.5,7) -- (1.5,3.5)
+
+node[label={above:A}] (A) at (5,7){} node[label={below:B}] (B) at (5,3.5){} (A) to[open, v=$U_i$] (B)
+
+(1.5,3.5) to[R, *-*, l_=$R_2$](5,3.5)
+(8.5,7) -- (8.5,3.5)
+
+(5,3.5) to[R, *-*, l=$R_6$](8.5,3.5)
+(0,0) -- (8.5,0)
+(8.5,3.5) -- (8.5,0)
+;
+\end{circuitikz}
+\centering
+\caption{Obvod bez $R_3$}
+\end{figure}
+
+
+\begin{equation*}
+\begin{aligned}
+R_4{_5} &=R_4+R_5 \\
+\end{aligned}
+\end{equation*}
+
+\noindent
+\textit{Napätie $U_i$ je rovné rozdielu napätí pred rezistormi $R_6$ a $R_4{_5}$(proti zemi). Pre výpočet je možné použiť postup pre napäťový delič.}
+
+\begin{equation*}
+\begin{aligned}
+U_{B} &=\frac{R_6}{R_2+R_6}U_1 \\ \\
+U_{A} &=\frac{R_4{_5}}{R_1+R_4{_5}}U_1 \\ \\
+U_i &= \abs{U_{R_A}-U_{R_B}} \\
+\end{aligned}
+\end{equation*}
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+
+(0,0) -- (0,4.25)
+(0,4.25) -- (1.5,4.25)
+(1.5,6) to[R, l_=$R_1$](5,6)
+
+node[label={above:A}] (A) at (5,6){} node[label={below:B}] (B) at (5,2.5){} (A) to[open, v=$U_i$] (B)
+
+
+(1.5,6) -- (1.5,2.5)
+(1.5,2.5) to[R, -, l=$R_2$](5,2.5)
+(8.5,6) -- (8.5,2.5)
+(5,6) to[R, *-, l_=$R_4{_5}$, ](8.5,6)
+
+(5,2.5) to[R, *-, l=$R_6$](8.5,2.5)
+(0,0) -- (10,0)
+
+(10,0) -- (10,4.25)
+(8.5,4.25) -- (10,4.25)
+;
+\end{circuitikz}
+\centering
+\caption{Nahradenie zdroja skratom}
+\end{figure}
+
+\textit{Ďalej je potrebné zistiť odpor $R_i$ medzi bodmi A a B. Obr. 10 sa dá ešte zjednodušiť.}
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+
+(1.5,0) -- (3.5,0)
+(3.5,0) -- (3.5,0.5)
+(1.5,0) -- (1.5,0.5)
+(0.5,0.5) -- (2.5,0.5)
+(0.5,0.5) to[R, l_=$R_2$](0.5,2.5)
+(2.5,0.5) to[R, l_=$R_6$](2.5,2.5)
+(0.5,2.5) -- (2.5,2.5)
+(0.5,2.5) to[R, l_=$R_1$](0.5,4.5)
+(2.5,2.5) to[R, l_=$R_4{_5}$](2.5,4.5)
+(0.5,4.5) -- (2.5,4.5)
+(1.5,4.5) -- (1.5,5)
+(1.5,5) -- (3.5,5)
+(3.5,5) -- (3.5,4.5)
+
+node[label={below:A}] (A) at (3.5,4.5){} node[label={above:B}] (B) at (3.5,0.5){}
+(A) to[open, v^>=$R_i$] (B)
+;
+\end{circuitikz}
+\centering
+\caption{Zistenie $R_i$}
+\end{figure}
+
+
+\begin{equation*}
+\begin{aligned}
+R_1{_4}{_5} &=\frac{R_1R_4{_5}}{R_1+R_4{_5}} \\ \\
+R_2{_6} &=\frac{R_2R_6}{R_2+R_6} \\ \\ 
+\end{aligned}
+\end{equation*}
+
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+(1.5,0) -- (3.5,0)
+(3.5,0) -- (3.5,0.5)
+(1.5,0) -- (1.5,0.5)
+(1.5,0) to[R, l_=$R_2{_6}$](1.5,2.5)
+(1.5,2.5) to[R, l_=$R_1{_4}{_5}$](1.5,5)
+(1.5,5) -- (3.5,5)
+(3.5,5) -- (3.5,4.5)
+node[label={below:A}] (A) at (3.5,4.5){}
+node[label={above:B}] (B) at (3.5,0.5){}
+(A) to[open, v^>=$R_i$] (B)
+;
+\end{circuitikz}
+\centering
+\caption{Zistenie $R_i$}
+\end{figure}
+
+\begin{equation*}
+\begin{aligned}
+R_i &= R_1{_2}{_4}{_5}{_6}=R_1{_4}{_5} + R_2{_6} \\ \\ 
+\end{aligned}
+\end{equation*}
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+(0,3) to[dcvsource, v_=$U_1$](0,0)
+(0,3) to[R, l=$R_i$](3,3)
+(3,3) to[R, l=$R_3$, i=$I_3$, v_=$U_3$](3,0)
+(0,0) -- (3,0)
+;
+\end{circuitikz}
+\centering
+\caption{Výpočet $U_{{_R}_3}$}
+\end{figure}
+
+\begin{equation*}
+\begin{aligned}
+I_{_R{_3}} &= \frac{U_i}{R_i+R_3}  \\ \\ 
+I_{_R{_3}} &= \frac{\abs{\frac{R_6}{R_2+R_6}U_1-\frac{R_4+R_5}{R_1+R_4+R_5}U_1}}{\frac{R_1(R_4+R_5)}{R_1+R_4+R_5} + \frac{R_2R_6}{R_2+R_6}+R_3}\approx70.424mA  \\ \\ 
+U_{_R{_3}} &= I_3R_3\approx42.9586V \\ \\
+\end{aligned}
+\end{equation*}

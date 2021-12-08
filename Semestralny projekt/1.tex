@@ -1,0 +1,195 @@
+\section{Príklad č.~1} 
+
+\subsection{Zadanie}
+Stanovte napätie $U_{{R}_6}$ a prúd $I_{{R}_6}$ s použitím metódy zjednodušovania. \\
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		sk. & $U_{1}$~[V] & $U_{2}$~[V] & $R_{1}~[\Omega]$ & $R_{2}~[\Omega]$ & $R_{3}~[\Omega]$ & $R_{4}~[\Omega]$ & $R_{5}~[\Omega]$ & $R_{6}~[\Omega]$ & $R_{7}~[\Omega]$ & $R_{8}~[\Omega]$ \\
+		\hline
+		A& 80& 120& 350& 650& 410& 130& 360&750 &310 &190  \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Zjednodušovanie obvodu}
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+
+(0,7) to[dcvsource, v_=$U_1$](0,3.5)
+(0,3.5) to[dcvsource, v_=$U_2$](0,0)
+(0,7) -- (1.5,7)
+(1.5,7) to[R, l_=$R_1$](5,7)
+(1.5,7) to[R, *-*, l=$R_2$](1.5,3.5)
+(5,7) to[R, *-*, l_=$R_5$](5,3.5)
+(1.5,3.5) -- (1.5,2)
+(1.5,3.5) to[R, *-*, l_=$R_3$](5,3.5)
+(1.5,2) to[R, *-*, l_=$R_4$](5,2)
+(5,3.5) -- (5,2)
+(5,7) -- (8.5,7)
+(8.5,7) to[R, -*, l_=$R_7$, ](8.5,3.5)
+(8.5,4.5) -- (8.5,3.5)
+(5,3.5) to[R, *-*, l=$R_6$, i=$I_6$, v=$U_6$](8.5,3.5)
+(0,0) to[R, l_=$R_8$](8.5,0)
+(8.5,3.5) -- (8.5,0)
+;
+
+\end{circuitikz}
+\centering
+\caption{Pôvodný obvod}
+\end{figure}
+\clearpage
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+(0,7) to[dcvsource, v_=$U_1$](0,3.5)
+(0,3.5) to[dcvsource, v_=$U_2$](0,0)
+(0,7) -- (1.5,7)
+(1.5,7) to[R, l_=$R_1$](5,7)
+(1.5,7) to[R, *-*, l=$R_2$](1.5,3.5)
+(5,7) to[R, *-*, l_=$R_5$](5,3.5)
+(1.5,3.5) to[R, *-*, l_=$R_3{_4}$](5,3.5)
+(5,7) -- (8.5,7)
+(8.5,7) to[R, -*, l_=$R_7$, ](8.5,3.5)
+(8.5,4.5) -- (8.5,3.5)
+(5,3.5) to[R, *-*, l=$R_6$, i=$I_6$, v=$U_6$](8.5,3.5)
+(0,0) to[R, l_=$R_8$](8.5,0)
+(8.5,3.5) -- (8.5,0)
+;
+\end{circuitikz}
+\centering
+\caption{Spojenie $R_3$ a $R_4$}
+\end{figure}
+
+\begin{equation*}
+\begin{aligned}
+R_3{_4} &=\frac{R_3 R_4}{R_3+R_4} \\
+\end{aligned}
+\end{equation*}
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+
+(0,5.25) to[dcvsource, v_=$U_1$](0,2.75)
+(0,2.75) to[dcvsource, v_=$U_2$](0,0)
+(0,5.25) -- (1.5,5.25)
+(1.5,7) to[R, l_=$R_1$](5,7)
+(5,7) to[R, *-*, l_=$R_5$](5,3.5)
+(1.5,7) -- (1.5,3.5)
+(1.5,3.5) to[R, -, l_=$R_2{_3}{_4}$](5,3.5)
+(8.5,7) -- (8.5,3.5)
+(5,7) to[R, *-, l_=$R_7$, ](8.5,7)
+
+(5,3.5) to[R, *-, l=$R_6$, i=$I_6$, v=$U_6$](8.5,3.5)
+(0,0) to[R, l_=$R_8$](10,0)
+
+(10,0) -- (10,5.25)
+(8.5,5.25) -- (10,5.25)
+;
+\end{circuitikz}
+\centering
+\caption{Spojenie $R_2$ a $R_3{_4}$}
+\end{figure}
+
+\begin{equation*}
+\begin{aligned}
+R_2{_3}{_4} &= R_3{_4} + R_2 \\
+\end{aligned}
+\end{equation*}
+
+\clearpage
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+
+(0,5.25) to[dcvsource, v_=$U_1$](0,2.75)
+(0,2.75) to[dcvsource, v_=$U_2$](0,0)
+
+(0,5.25) to[R, l=$R_A$](2.5,5.25)
+(2.5,5.25) to[R, *-*, l=$R_B$](5,7)
+(2.5,5.25) to[R, *-*, l_=$R_C$](5,3.5)
+
+(8.5,7) -- (8.5,3.5)
+(5,7) to[R, *-, l_=$R_7$, ](8.5,7)
+
+(5,3.5) to[R, *-, l=$R_6$, i=$I_6$, v=$U_6$](8.5,3.5)
+(0,0) to[R, l_=$R_8$](10,0)
+
+(10,0) -- (10,5.25)
+(8.5,5.25) -- (10,5.25)
+;
+\end{circuitikz}
+\centering
+\caption{Trojuholník -> hviezda}
+\end{figure}
+
+
+\textit{Vytvorenie rovníc na prevod trojuholník -> hviezda: \\}
+\begin{equation*}
+\begin{aligned}
+R_A&=\frac{R_1R_{234}}{R_1+R_{234}+R_5} \\
+R_B&=\frac{R_1R_5}{R_1+R_{234}+R_5} \\
+R_C&=\frac{R_5R_{234}}{R_1+R_{234}+R_5} \\
+\end{aligned}
+\end{equation*}
+
+
+\begin{equation*}
+\begin{aligned}
+R_B{_7} &=R_B+R_7 \\
+R_C{_6} &=R_C+R_6 \\
+R_B{_7}{_C}{_6} &=\frac{R_B{_7}R_C{_6}}{R_B{_7}+R_C{_6}} \\
+\end{aligned}
+\end{equation*}
+
+\begin{figure}[h!]
+\begin{circuitikz} \draw
+(0,4) to[dcvsource, v_=$U_1$](0,2)
+(0,2) to[dcvsource, v_=$U_2$](0,0)
+(0,4) to[R, l=$R_A$](4.75,4)
+(4.75,4) to[R, l=$R_B{_7}{_C}{_6}$](8.5,4)
+(0,0) to[R, l_=$R_8$](10,0)
+(10,0) -- (10,4)
+(8.5,4) -- (10,4)
+;
+\end{circuitikz}
+\centering
+\caption{Sériové spojenie $R_B$ a $R_7$, $R_C$ a $R_6$; paralelné spojenie $R_B{_7}$ a $R_C{_6}$.}
+\end{figure}
+\clearpage
+
+\begin{figure}[h]
+\begin{circuitikz} \draw
+(0,3) to[dcvsource, v_=$U$](0,0)
+(0,3) to[R, l=$R_E{_K}{_V}$](4,3)
+(4,3) -- (4,0)
+(0,0) -- (4,0)
+;
+\end{circuitikz}
+\centering
+\caption{Výsledný zjednodušený obvod.}
+\end{figure}
+\begin{equation*}
+\begin{aligned}
+U&=U_1+U_2 \\ \\
+\end{aligned}
+\end{equation*}
+
+\subsection{Riešenie}
+
+\textit{Získavame celkový odpor. Z neho dostávame celkový prúd prechádzajúci obvodom $I_c{_e}{_l}{_k}$. Z neho už vieme získať prúd $I_{R{_C}{_6}}$ prechádzajúci vetvou, na ktorej sa nachádza aj odpor $U_{R_{6}}$.}
+
+\begin{equation*}
+\begin{aligned}
+R_E{_K}{_V} &=R_A+R_B{_7}{_C}{_6}+R_8 \\ \\
+I_c{_e}{_l}{_k}&=\frac{U}{R_E{_K}{_V}}=\frac{U_1+U_2}{R_E{_K}{_V}} \\ \\
+U_{R{_B}{_7}{_C}{_6}}&=I_c{_e}{_l}{_k}R_B{_7}{_C}{_6}\\ \\
+U_{R{_B}{_7}{_C}{_6}}&=\frac{U}{R_E{_K}{_V}}\times \frac{R_B{_7}R_C{_6}}{R_B{_7}+R_C{_6}}\\ \\
+U_{R{_B}{_7}{_C}{_6}}&=\frac{U}{R_A+\frac{R_B{_7}R_C{_6}}{R_B{_7}+R_C{_6}}+R_8}\times \frac{R_B{_7}R_C{_6}}{R_B{_7}+R_C{_6}}\\ \\
+I_{R{_C}{_6}}=&\frac{U_R{_B}{_7}{_C}{_6}}{R_C{_6}}=I_{R_{6}} \approx  \SI{0.0919}{\ampere}\\ \\
+U_{R_{6}}=&R_6\times I_{R_{6}} \approx  \SI{68.929}{\volt}
+\end{aligned}
+\end{equation*}

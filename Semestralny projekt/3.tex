@@ -1,0 +1,162 @@
+\section{Príklad č.~3} 
+
+\subsection{Zadanie}
+Stanovte napätie $U_{{R}_2}$ a prúd $I_{{R}_2}$. Použite metódu uzlových napätí ($U_A, U_B, U_C$).
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+		\hline
+		sk. & $U$~[V] & $I_{1}$~[A] & $I_{2}$~[A] & $R_{1}~[\Omega]$ & $R_{2}~[\Omega]$ & $R_{3}~[\Omega]$ & $R_{4}~[\Omega]$ & $R_{5}~[\Omega]$ \\
+		\hline
+		G& 160&0.65&0.45&46&41&53&33&29\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Riešenie}
+
+\begin{figure}[!h]
+\begin{circuitikz} \draw
+
+(0,1.5) -- (3.5,1.5)
+(7,5) -- (8.5,5)
+(7,1.5) -- (8.5,1.5)
+(3.5,0) -- (3.5,1.5)
+(7,0) -- (7,1.5)
+
+(0,5) to[R, l_=$R_1$, -*, i=$I_{R_{1}}$](3.5,5)
+(3.5,5) to[R, l=$R_2$, *-*, i_=$I_{R_{2}}$](3.5,1.5)
+(3.5,5) to[R, l=$R_3$, *-*, i=$I_{R_{3}}$](7,5)
+(7,1.5) to[R, l=$R_4$, v=$U_{C}$, *-*, i=$I_{R_{4}}$](3.5,1.5)
+(7,5) to[R, l_=$R_5$, i=$I_{R_{5}}$](7,1.5)
+
+(0,5) to[dcvsource, v_=$U$] (0,1.5)
+(3.5,0) to[ioosource, l_=$I_2$, i=$I_2$] (7,0)
+(8.5,1.5) to[ioosource, l_=$I_{1}$, i_=$I_1$] (8.5,5)
+
+(3.4,5) to[open, v=$U_A$] (3.4,1.5)
+(7.2,5.2) to[open, v=$U_{B}$] (3.3,1.2);
+
+\end{circuitikz}
+\centering
+\caption{Pôvodný obvod}
+\end{figure}
+
+\begin{equation*}
+\begin{aligned}
+I_{{R}_1} &= I_{{R}_2} + I_{{R}_3} \\
+I_1 + I_{{R}_3} &= I_{{R}_5} \\
+I_2 + I_{{R}_5} &= I_{{R}_4} + I_1 \\
+\end{aligned}
+\end{equation*}
+\textit{Zostavíme rovnice podľa jednotlivých uzlov.}
+
+\begin{equation*}
+\begin{aligned}
+\frac{U - U_A}{R_1} &= \frac{U_A}{R_2} + \frac{U_A - U_B}{R_3} \\
+I_1 + \frac{U_A - U_B}{R_3} &= \frac{U_B - U_C}{R_5} \\
+I_2 + \frac{U_B - U_C}{R_5} &= \frac{U_C}{R_4} + I_1 \\
+\end{aligned}
+\end{equation*}
+
+
+
+\clearpage
+
+\textit{Z rovníc zostavíme maticu:}
+
+\begin{equation*}
+\centering
+\begin{pmatrix}
+R_1R_3+R_1R_2+R_2R_3&-R_1R_2&0 \\
+R_5&-R_5-R_3&R_3 \\
+0&R_4&-R_4-R_5
+\end{pmatrix}
+\begin{pmatrix}
+U_A\\U_B\\U_C\\
+\end{pmatrix}
+=
+\begin{pmatrix}
+R_2R_3U\\-R_3R_5I_1\\R_4R_5I_1-R_4R_5I_2\\
+\end{pmatrix}
+\end{equation*}
+
+\textit{Po dosadení číselných hodnôt:}
+
+\begin{equation*}
+\centering
+\begin{pmatrix}
+6497&-1886&0 \\
+29&-82&53 \\
+0&33&-61
+\end{pmatrix}
+\begin{pmatrix}
+U_A\\U_B\\U_C\\
+\end{pmatrix}
+=
+\begin{pmatrix}
+347680\\-999.05 \\191.4 \\
+\end{pmatrix}
+\end{equation*}
+
+\begin{center}
+    det(A) = 18276467
+\end{center}
+
+Výpočet determinantov:
+
+\begin{equation*}
+\centering
+{det}_{U_{A}}=
+\begin{vmatrix}
+347680&-1886&0 \\
+-999.05&-82&53 \\
+191.4&33&-61
+\end{vmatrix}
+=1257201753.4
+\end{equation*}
+
+\begin{equation*}
+\centering
+{det}_{U_{B}}=
+\begin{vmatrix}
+6497&347680&0 \\
+29&-999.05&53 \\
+0&191.4&-61
+\end{vmatrix}
+=961653099.3
+\end{equation*}
+
+\begin{equation*}
+\centering
+{det}_{U_{C}}=
+\begin{vmatrix}
+6497&-1886&347680 \\
+29&-82&-999.05 \\
+0&33&191.4
+\end{vmatrix}
+=455426395.05
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}
+\centering
+U_A=&\frac{{det}_{U_{A}}}{det(A)}=\frac{1257201753.4}{18276467} = \SI{68.788}{\volt}\\
+U_B=&\frac{{det}_{U_{B}}}{det(A)}=\frac{961653099.3}{18276467} = \SI{52.617}{\volt}\\
+U_C=&\frac{{det}_{U_{C}}}{det(A)}=\frac{455426395.05}{18276467} = \SI{24.9187}{\volt}\\
+\end{aligned}
+\end{equation*}
+
+
+
+\textit{Z rovníc dostávame $U_A$, $U_B$ a $U_C$. Z $U_A$ dopočítame $U_{{R}_2}$ a $I_{{R}_2}$.}
+
+\begin{equation*}
+\begin{aligned}
+U_{{R}_2} &= U_A \approx \SI{68.788}{\volt} \\
+I_{{R}_2} &= \frac{U_A}{R_2} \approx \SI{1.6778}{\ampere} \\
+\end{aligned}
+\end{equation*}
+
+\clearpage

@@ -1,0 +1,191 @@
+\section{Príklad č.~4} 
+
+\subsection{Zadanie}
+
+Pre napájacie napätie platí $u_1=U_1  \sin{(2\pi f t)}$, $u_2=U_2  \sin{(2\pi f t)}$. Vo vzťahu pre \\napätie $u_{{_L}_2}=U_2 \sin{(2\pi f t + \varphi_{{_L}_2})}$ určte $\abs{U_{{_L}_2}}$ a $\varphi_{{_L}_2}$. Použite metódu slučkových prúdov. Pomocné smery šípiek napájacích zdrojov platia pre špeciálny čas ($t=\frac{\pi}{2\omega}$).
+
+\begin{table}[ht]
+	\centering
+	\resizebox{\textwidth}{!}{
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		sk. & $U_{1}$~[V] & $U_{2}$~[V] & $R_{1}~[\Omega]$ & $R_{2}~[\Omega]$ & $L_{1}$~[mH] & $L_{2}$~[mH] & $C_{1}$~[$\mu$F] & $C_{2}$~[$\mu$F] & $f$~[Hz] \\
+		\hline
+		A&35&55&12&14&120&100&200&105&70 \\
+		\hline
+	\end{tabular}
+	}
+\end{table}
+
+\subsection{Riešenie}
+
+\begin{figure}[!h]
+\begin{circuitikz} \draw
+
+(0,0) -- (0,3)
+(6,6) -- (6,3)
+
+(0,3) to[R, l_=$R_1$](0,6)
+(3,0) to[R, l_=$R_2$](3,3)
+
+(0,0) to[L, l=$L_1$](3,0)
+(6,3) to[L, l=$L_2$, v=$u_{{_L}_2}$, i>_=$i_{L_{2}}$](3,3)
+
+(0,3) to[C, l_=$C_1$](3,3)
+(3,0) to[C, l=$C_2$](6,0)
+
+(0,6) to[sV=$u_1$] (6,6)
+(6,3) to[sV=$u_2$] (6,0)
+;
+\draw[thin, <-, >=triangle 45] (1.5,1.4)node{$i_B$}  ++(-60:0.5) arc (-60:170:0.5);
+
+\draw[thin, <-, >=triangle 45] (3,4.5)node{$i_A$}  ++(-60:0.5) arc (-60:170:0.5);
+
+\draw[thin, <-, >=triangle 45] (4.5,1.4)node{$i_C$}  ++(-60:0.5) arc (-60:170:0.5);
+
+\end{circuitikz}
+\centering
+\caption{Pôvodný obvod}
+\end{figure}
+
+\textit{Zostavíme rovnice podľa jednotlivých slučiek:}
+\begin{equation*}
+\begin{aligned}
+i_A:\;&U_1+Z_{L{_2}}(I_A-I_C)+Z_{C{_1}}(I_A-I_B)+R_1 I_A = 0 \\
+i_B:\;&R_2(I_B-I_C)+Z_{L{_1}}I_B+Z_{C{_1}}(I_B-I_A)=0 \\
+i_B:\;&U_2+Z_{C{_2}}I_C+R_2(I_C-I_B)+Z_{L{_2}}(I_C-I_A)=0 \\
+\end{aligned}
+\end{equation*}
+
+\textit{Zostavíme maticu podľa rovníc:}
+\hfill 
+
+\begin{equation*}
+\centering
+\begin{pmatrix}
+Z_{L{_2}}+Z_{C{_1}}+R_1&-Z_{C{_1}}&-Z_{L{_2}}\\
+-Z_{C{_1}}&R_2+Z_{L{_1}}+Z_{C{_1}}&-R_2 \\
+-Z_{L{_2}}&-R_2&Z_{C{_2}}+R_2+Z_{L{_2}}
+\end{pmatrix}
+\begin{pmatrix}
+I_A\\I_B\\I_C\\
+\end{pmatrix}
+=
+\begin{pmatrix}
+-U_1\\0\\-U_2\\
+\end{pmatrix}
+\end{equation*}
+
+\clearpage
+\textit{Po dosadeni číselných hodnôt:}
+
+\begin{equation*}
+\centering
+\resizebox{.9\textwidth}{!}{
+\begin{pmatrix}
+2\pi fj\times0.1-\frac{j}{2\pi f \times  0.0002}+12&\frac{j}{2\pi f\times 0.0002}&-2\pi fj\times 0.1\\
+\frac{j}{2\pi f}\times 0.0002&14+2\pi fj\times 0.12-\frac{j}{2\pi f \times 0.0002}&-14 \\
+-2\pi fj\times 0.1&-14&-\frac{j}{2\pi f \times 0.000105}+14+2\pi f j \times 0.001
+\end{pmatrix}
+\begin{pmatrix}
+I_A\\I_B\\I_C\\
+\end{pmatrix}
+=
+\begin{pmatrix}
+-35\\0\\-55\\
+\end{pmatrix}
+}
+\end{equation*}
+
+\textit{Ďalej upravujeme:}
+
+\begin{equation*}
+\centering
+\resizebox{.8\textwidth}{!}{
+\begin{pmatrix}
+12+32.6141j&11.3682j&-43.9823j \\
+11.3682j&14+41.4105j&-14 \\
+-43.9823j&-14&14+22.3286j
+\end{pmatrix}
+\begin{pmatrix}
+I_A\\I_B\\I_C\\
+\end{pmatrix}
+=
+\begin{pmatrix}
+-35\\0\\-55\\
+\end{pmatrix}
+}
+\end{equation*}
+
+\textit{Pomocou Cramerovho pravidla zistíme jednotlivé prúdy:}
+
+\begin{equation*}
+\begin{aligned}
+    I_A= -1.4823-1.4954j \\
+    I_B= -0.3114+0.842j \\
+    I_C= -1.5876-1.2826j \\
+\end{aligned}
+\end{equation*}
+
+\begin{equation*}
+\begin{aligned}
+    u_{L_{2}} = Z_{L_{2}}(I_A-I_C) = 9.3593+4.6336j \\
+    \abs{u_{L_{2}}} = \sqrt{9.3593^{2}+4.6336^{2}}=\SI{10.4435}{\volt}
+\end{aligned}
+\end{equation*}
+\textit{Zostáva nám dopočítať $\varphi_{C_{2}}$ z imaginárnej a reálnej zložky$u_{L_{2}}$:}
+
+
+\begin{equation*}
+\begin{aligned}
+    \tan\varphi =& \frac{4.6336}{9.3593} \\
+    \tan\varphi \approx& 0.4597rad\approx26.339\degree
+\end{aligned}
+\end{equation*}
+\textit{Výsledný uhol zodpovedá zhruba $26.339\degree$, takže vieme s istotou povedať, že sa nachádza v 1. kvadrante a teda sa jedná o konečný výsledok.}
+
+
+
+\clearpage
+
+\subsection{Výpočet v Pythone (pomocou numpy)}
+
+\begin{lstlisting}[language=Python]
+# imports
+import numpy as np
+from math import *
+j = np.complex(0, 1)
+
+# known values
+U1, U2 = 35, 55
+R1, R2 = 12, 14
+L1, L2 = 120*10**(-3), 100*10**(-3)
+C1, C2 = 200*10**(-6), 105*10**(-6)
+f = 70
+ZL1, ZL2 = j*2*pi*f*L1, j*2*pi*f*L2
+ZC1, ZC2 = -(j/(2*pi*f*C1)), -(j/(2*pi*f*C2))
+
+# creation of numpy array for complex number matrix solver
+A, B = np.array([[ZL2+ZC1+R1, -ZC1, -ZL2], [-ZC1, R2+ZL1+ZC1, -R2], [-ZL2, -R2, ZC2+R2+ZL2]]), np.array([-U1, 0, -U2])
+
+# solver, definition of each resulting current
+IA, IB, IC = np.linalg.solve(A, B)
+
+# calculation of voltage on L2
+UL2 = ZL2 * (IA-IC)
+
+# amplitude of UL2
+amp = sqrt(UL2.real**2 + UL2.imag**2)
+
+# calculation of angle 
+angle = atan(imag/real)
+\end{lstlisting}
+
+\begin{equation*}
+\begin{aligned}
+U_{L_{2}} \approx& \; \SI{10.443454432618116}{\volt} \\
+\varphi_{C_{2}} \approx& \; \SI{0.45970379979063625}{\radian} \\
+\end{aligned}
+\end{equation*}
+
+\textit{Pre overenie môžeme skontrolovať amplitúdu napätia na cievke $Z_{L_{2}}$ v obvode namodelovanom vo \href{https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAMB0l3BWEBmAHAJmgdgGzoRmACzICcpkORI1SJAUAE4gC0x1Vr74p6U46egDcuRDtXRFIITtIhZpyJNJXQEwkJLm9NUlMhz950hMv4x1AY1HUwOsIbt9V8O+XcfPqVuizQi5OjIkPiUYuiQWPQANuCOOlo8zlDQEDBg6GCUOHgI6KQZBAhE9ADuutKciU5QMTb6jobIBuapfCwwyFhoqBimFF1EYGBMcUljzYZyJeVsYuNz1JO11g4NFesucFkBnnvkrMHQ6KhKqN2QxL2UggD2NGPSUqTeemDQU5oPyPT3ldRPSCkLCaRTHcBfRT0IA}{Falstad-e}. Zistíme, že sedí s našimi výpočtami.}
